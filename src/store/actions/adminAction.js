@@ -1,6 +1,6 @@
 import actionTypes from './actionTypes';
 import {getAllcodeService, createNewUserService,getUser,deleteUserService,
-    editUserService, getTopDoctorService} from "../../services/userService";
+    editUserService, getTopDoctorService, getAllDoctor, saveInforDoctor} from "../../services/userService";
 import { ToastContainer, toast } from 'react-toastify';
 
 export const fetchGenderStart =  () => {
@@ -179,11 +179,55 @@ export const fetchTopDoctor = ()=>{
             }else{
                 console.log('fetch top doctor Failed');
                 dispatch({
-                    type: actionTypes.FETCH_ALL_USER_FAILED,
+                    type: actionTypes.FETCH_TOP_DOCTOR_FAILED,
                 });
             }
         }catch(e){
-            dispatch(fetchAllUserFailed());
+            dispatch({
+                type: actionTypes.FETCH_TOP_DOCTOR_FAILED,
+            });
+        }
+    }
+}
+
+export const fetchAllDoctor = ()=>{
+    return async (dispatch, getState)=>{
+        try{
+            let res = await getAllDoctor();
+            if(res && res.errCode === 0){
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTOR_SUCCESS,
+                    doctors: res.data
+                });
+            }else{
+                console.log('fetch top doctor Failed');
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTOR_FAILED,
+                });
+            }
+        }catch(e){
+            dispatch({type: actionTypes.FETCH_ALL_DOCTOR_FAILED});
+        }
+    }
+}
+
+export const saveInforDoctorAction = (inforDoctor)=>{
+    return async (dispatch, getState)=>{
+        try{
+            let res = await saveInforDoctor(inforDoctor);
+            if(res && res.errCode === 0){
+                toast.success("Save infor doctor succeed !");
+                dispatch({
+                    type: actionTypes.SAVE_INFOR_DOCTOR_SUCCESS,
+                });
+            }else{
+                toast.error("Save infor doctor error !");
+                dispatch({
+                    type: actionTypes.SAVE_INFOR_DOCTOR_FAILED,
+                });
+            }
+        }catch(e){
+            dispatch({type: actionTypes.FETCH_ALL_DOCTOR_FAILED});
         }
     }
 }

@@ -5,7 +5,6 @@ import { CRUD_ACTION, LANGUAGES, manageActions } from '../../../utils/constant';
 import * as actions from "../../../store/actions";
 import CommonUtils from "../../../utils/CommonUtils";
 import './UserRedux.scss';
-import { forEach } from 'lodash';
 import TableManageUser from './TableManageUser';
 
 class UserRedux extends Component {
