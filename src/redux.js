@@ -1,4 +1,4 @@
-import { logger } from "redux-logger";
+// import { logger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
@@ -32,7 +32,7 @@ const middleware = [
     thunkMiddleware,
     createStateSyncMiddleware(reduxStateSyncConfig),
 ]
-if (isDevelopment) middleware.push(logger);
+// if (isDevelopment) middleware.push(logger);
 
 const composeEnhancers = (isDevelopment && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 

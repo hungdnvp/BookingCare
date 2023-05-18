@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { CRUD_ACTION, LANGUAGES, manageActions } from '../../../utils/constant';
+import { CRUD_ACTION, LANGUAGES } from '../../../utils/constant';
 import * as actions from "../../../store/actions";
 import CommonUtils from "../../../utils/CommonUtils";
 import './UserRedux.scss';
@@ -114,7 +114,7 @@ class UserRedux extends Component {
         return isValid;
     }
     handleSaveUser = () => {
-        if(this.state.action == CRUD_ACTION.CREATE){
+        if(this.state.action === CRUD_ACTION.CREATE){
 
             let check = this.checkInputValid();
             if (check === false) return;
@@ -132,7 +132,7 @@ class UserRedux extends Component {
                 avatar: this.state.avatar
             })
         }
-        if(this.state.action == CRUD_ACTION.EDIT){
+        if(this.state.action === CRUD_ACTION.EDIT){
             let avatarNew = '';
             if(this.state.avatar){
                 avatarNew = this.state.avatar;
@@ -172,6 +172,7 @@ class UserRedux extends Component {
             userIdEdit: user.id
         })
         console.log(this.state)
+
     }
     render() {
         let genders = this.state.genderArr;
@@ -181,8 +182,7 @@ class UserRedux extends Component {
         let isLoadingGender = this.props.isLoadingGender;
 
         let { email, password, firstName, lastName, phoneNumber,
-            address, gender, role, position, avatar } = this.state
-        console.log(genders)
+            address, gender, role, position } = this.state
         return (
             <div className='user-redux-container'>
                 <div className="title" >Người dùng</div>
@@ -229,7 +229,7 @@ class UserRedux extends Component {
                                 <label><FormattedMessage id="manage-user.gender" /></label>
                                 <select className="form-control"
                                     onChange={(event) => this.handleOnChangeInput(event, 'gender')}
-                                    value={gender}
+                                    value={gender || ''}
                                 >
                                     {genders && genders.length > 0 &&
                                         genders.map((item, index) => {
@@ -243,7 +243,7 @@ class UserRedux extends Component {
                                 <label><FormattedMessage id="manage-user.role" /></label>
                                 <select className="form-control"
                                     onChange={(event) => this.handleOnChangeInput(event, 'role')}
-                                    value={role}
+                                    value={role || ''}
                                 >
                                     {roles && roles.length > 0 && roles.map((item, index) => {
                                         return (
@@ -258,7 +258,7 @@ class UserRedux extends Component {
                                 <label><FormattedMessage id="manage-user.position" /></label>
                                 <select className="form-control"
                                     onChange={(event) => this.handleOnChangeInput(event, 'position')}
-                                    value={position}
+                                    value={position || ''}
                                 >
                                     {positions && positions.length > 0 && positions.map((item, index) => {
                                         return (
