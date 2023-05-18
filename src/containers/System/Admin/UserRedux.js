@@ -185,7 +185,7 @@ class UserRedux extends Component {
         console.log(genders)
         return (
             <div className='user-redux-container'>
-                <div className="title" >User Redux</div>
+                <div className="title" >Người dùng</div>
                 <div className='user-redux-body'>
                     <div className='container'>
                         <div className='row'>
