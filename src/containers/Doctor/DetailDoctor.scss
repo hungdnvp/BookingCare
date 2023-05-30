@@ -45,4 +45,16 @@
     .comment-doctor{
         height: 100px;
     }
+    .schedule-doctor{
+        margin: 0 100px;
+        display: flex;
+        height: 200px;
+        border: solid 1px red;
+        .left-container{
+            width: 50%;
+        }
+        .right-container{
+            width: 50%;
+        }
+    }
 }

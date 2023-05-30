@@ -179,7 +179,6 @@ class UserRedux extends Component {
         let roles = this.state.roleArr;
         let positions = this.state.positionArr;
         let language = this.props.language;
-        let isLoadingGender = this.props.isLoadingGender;
 
         let { email, password, firstName, lastName, phoneNumber,
             address, gender, role, position } = this.state
@@ -279,7 +278,6 @@ class UserRedux extends Component {
                                         style={{ backgroundImage: `url(${this.state.previewUrl})` }}></div>
                                 </div>
                             </div>
-                            <div className='col-12' style={{ color: "red" }}>{isLoadingGender === true ? 'Loading genders' : ''} </div>
                             <div className='col-12 my-3'>
                                 <button className={this.state.action === CRUD_ACTION.EDIT ? 'btn btn-warning' :'btn btn-primary'} 
                                 onClick={() => this.handleSaveUser()}>
@@ -307,7 +305,6 @@ const mapStateToProps = state => {
     return {
         language: state.app.language,
         genderRedux: state.admin.genders,
-        isLoadingGender: state.admin.isLoadingGender,
         positionRedux: state.admin.positions,
         roleRedux: state.admin.roles,
         listUser: state.admin.users

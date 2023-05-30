@@ -8,6 +8,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
 import { getDetailInforDoctor } from "../../../services/userService";
+import { LANGUAGES } from '../../../utils/constant';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -35,9 +36,6 @@ class ManageDoctor extends Component {
                 allDoctors: dataSelect
             })
         }
-
-
-
     }
     handleEditorChange = ({ html, text }) => {
         this.setState({
@@ -84,10 +82,14 @@ class ManageDoctor extends Component {
     }
     buildOption = (inputData) => {
         let result = []
+        let {language} = this.props;
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let obj = {};
-                obj.label = `${item.lastName} ${item.firstName}`;
+                let labeVi = `${item.lastName} ${item.firstName}`;
+                let labeEn = `${item.firstName} ${item.lastName}`;
+
+                obj.label = (language === LANGUAGES.VI ? labeVi : labeEn);
                 obj.value = item.id;
                 result.push(obj)
 
@@ -140,6 +142,7 @@ class ManageDoctor extends Component {
 
 const mapStateToProps = state => {
     return {
+        language: state.app.language,
         allDoctors: state.admin.alldoctors
     };
 };

@@ -2,32 +2,29 @@ import actionTypes from '../actions/actionTypes';
 
 
 const initialState = {
-    isLoadingGender: false,
     genders: [],
     roles: [],
     positions: [],
     users: [],
     topDoctor: [],
-    alldoctors: []
+    alldoctors: [],
+    allScheduleTime: [],
 }
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
-            state.isLoadingGender = true
             return {
                 ...state,
             }
         case actionTypes.FETCH_GENDER_SUCCESS:
             state.genders = action.data;
-            state.isLoadingGender = false;
 
             return {
                 ...state,
             }
         case actionTypes.FETCH_GENDER_FAILED:
             console.log("fetch gender fail");
-            state.isLoadingGender = false;
             state.genders = [];
             return {
                 ...state,
@@ -82,6 +79,16 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_DOCTOR_FAILED:
             state.alldoctors = [];
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
+            state.allScheduleTime = action.dataTime;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED:
+            state.allScheduleTime = [];
             return {
                 ...state,
             }
