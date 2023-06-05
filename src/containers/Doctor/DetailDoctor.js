@@ -23,7 +23,6 @@ class DetailDoctor extends Component {
                     detailDoctor: res.data
                 })
             }
-            console.log("data infor doctor ", this.state.detailDoctor);
         }
     }
 
@@ -73,7 +72,7 @@ class DetailDoctor extends Component {
                     </div>
                     <div className='detail-infor-doctor'>
                         {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.contentHTML
-                        && <div contentEditable='true' dangerouslySetInnerHTML={{ __html: detailDoctor.Markdown.contentHTML }}></div>}
+                        && <div contentEditable='false' dangerouslySetInnerHTML={{ __html: detailDoctor.Markdown.contentHTML }}></div>}
                     </div>
                     <div className='comment-doctor'>
 

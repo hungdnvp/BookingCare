@@ -4,11 +4,11 @@ import "./ManageSchedule.scss";
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import * as actions from "../../../store/actions";
-import { LANGUAGES, dateFormat } from '../../../utils/constant';
+import { LANGUAGES } from '../../../utils/constant';
 import DatePicker from '../../../components/Input/DatePicker';
 import { toast } from 'react-toastify';
 import { saveBulkSchedule } from '../../../services/userService';
-
+import moment from 'moment';
 const _ = require('lodash'); 
 
 
@@ -109,12 +109,16 @@ class ManageSchedule extends Component {
         }
 
         let res = await saveBulkSchedule(result)
-        console.log('res api: ',res)
-        console.log('result: ',result)
+        if(res && res.errCode === 0){
+            toast.success('Save successfully')
+        }else{
+                toast.error('invalid selected time')
+        }
     }
     render() {
         let { rangeTime } = this.state;
         let { language } = this.props;
+        let yesterday = new Date(new Date().setDate(new Date().getDate()-1));
         return (
             <React.Fragment>
                 <div className='manage-schedule-container'>
@@ -137,7 +141,7 @@ class ManageSchedule extends Component {
                                     className="form-control"
                                     onChange={this.handleOnChangeDatePicker}
                                     value={this.state.currentDate}
-                                    minDate={new Date()}
+                                    minDate={yesterday}
                                 />
                             </div>
                             <div className='col-12 pick-hour-container'>
