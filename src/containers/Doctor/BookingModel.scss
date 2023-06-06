@@ -1,0 +1,47 @@
+.booking-model-container{
+
+    .booking-model{
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        .booking-model-header{
+            padding: 12px;
+            border-bottom: 1px solid #ccc;
+            .left{
+                font-size: 15px;
+                cursor: pointer;
+                font-weight: 600;
+            }
+
+            .right{
+                padding: 0 4px;
+                float: right;
+                cursor: pointer;
+            }
+        }
+
+        .booking-model-body{
+            padding: 16px;
+            height: 100%;
+        }
+        .booking-model-footer{
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            button{
+                border: none;
+                outline: none;
+                padding: 5px 8px;
+                border-radius: 3px;
+            }
+            .confirm{
+                background-color: rgb(16, 139, 176);
+            }
+            .cancel{
+                background-color: rgb(200, 41, 41);
+            }
+        }
+    }
+}

@@ -52,6 +52,12 @@ const saveBulkSchedule = (data)=>{
 const getScheduleByDateService = (doctorId,date)=>{
     return axios.get(`/api/get_schedule_by_date?doctorId=${doctorId}&date=${date}`)
 }
+const getDetailDoctorExtra = (doctorId)=>{
+    return axios.get(`/api/get_detail_doctor_extra?doctorId=${doctorId}`)
+}
+const getProfileDoctorService = (doctorId)=>{
+    return axios.get(`/api/get_profile_doctor?doctorId=${doctorId}`)
+}
 export {
     handleLoginApi,
     getUser,
@@ -64,5 +70,7 @@ export {
     saveInforDoctor,
     getDetailInforDoctor,
     saveBulkSchedule,
-    getScheduleByDateService
+    getScheduleByDateService,
+    getDetailDoctorExtra,
+    getProfileDoctorService
 };
