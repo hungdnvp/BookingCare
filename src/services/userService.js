@@ -58,6 +58,12 @@ const getDetailDoctorExtra = (doctorId)=>{
 const getProfileDoctorService = (doctorId)=>{
     return axios.get(`/api/get_profile_doctor?doctorId=${doctorId}`)
 }
+const postPatientBookAppointment = (data)=>{
+    return axios.post('/api/patient_book_appointment',data)
+}
+const getVerifyBooking = (token,doctorId)=>{
+    return axios.get(`/api/verify_booking?token=${token}&doctorId=${doctorId}`)
+}
 export {
     handleLoginApi,
     getUser,
@@ -72,5 +78,7 @@ export {
     saveBulkSchedule,
     getScheduleByDateService,
     getDetailDoctorExtra,
-    getProfileDoctorService
+    getProfileDoctorService,
+    postPatientBookAppointment,
+    getVerifyBooking
 };
