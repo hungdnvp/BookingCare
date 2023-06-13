@@ -1,12 +1,32 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Slider from 'react-slick';
-
+import { getAllSpecialty } from '../../../services/userService';
+import { withRouter } from 'react-router';
 
 class Specialty extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSpecialty: []
+        }
+    }
+    async componentDidMount() {
+        let res = await getAllSpecialty()
+        if (res && res.errCode === 0) {
+            console.log('res Specialty :', res)
+            this.setState({
+                dataSpecialty: res.specialties
+            })
+        }
+    }
+    handleViewDetailSpecialty = (item)=>{
+        if(this.props.history){
+            this.props.history.push(`/detail-specialty/${item.id}`)
+        }
+    }
     render() {
-       
+        let { dataSpecialty } = this.state
         return (
             <div className='section-share section-specialty'>
                 <div className='section-container'>
@@ -16,38 +36,22 @@ class Specialty extends Component {
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 1</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 2</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 3</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 4</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 5</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 6</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 7</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 8</h3></span>
-                            </div>
+                            {dataSpecialty && dataSpecialty.length > 0 &&
+                                dataSpecialty.map((item, index) => {
+                                    return (
+                                        <div className='img-custome' key={index} 
+                                        onClick={()=>this.handleViewDetailSpecialty(item)}
+                                        >
+                                            <div className='bg-image'
+                                            style={{backgroundImage: `url(${item.image})`}}
+                                            ></div>
+                                            <span><h3>{item.name}</h3></span>
+                                        </div>
+                                    )
+                                })
+                            }
+
+
                         </Slider>
                     </div>
                 </div>
@@ -69,4 +73,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty));

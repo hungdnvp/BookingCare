@@ -1,7 +1,8 @@
 import actionTypes from './actionTypes';
 import {
     getAllcodeService, createNewUserService, getUser, deleteUserService,
-    editUserService, getTopDoctorService, getAllDoctor, saveInforDoctor
+    editUserService, getTopDoctorService, getAllDoctor, saveInforDoctor,
+    getAllSpecialty
 } from "../../services/userService";
 import { toast } from 'react-toastify';
 
@@ -241,14 +242,15 @@ export const getRequireDoctorInfor = () => {
             let resPrice = await getAllcodeService("PRICE");
             let resPayment = await getAllcodeService("PAYMENT");
             let resProvince = await getAllcodeService("PROVINCE");
-
-            if (!resPrice || !resPayment || !resProvince) {
+            let resSpecialty = await getAllSpecialty();
+            if (!resPrice || !resPayment || !resProvince || !resSpecialty) {
                 dispatch(fetchRequireDoctorInforFailed());
             } else {
                 let data = {
                     resPrice: resPrice.data,
                     resPayment: resPayment.data,
-                    resProvince: resProvince.data
+                    resProvince: resProvince.data,
+                    resSpecialty: resSpecialty.specialties
                 }
                 dispatch(fetchRequireDoctorInforSuccess(data));
             }

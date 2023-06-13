@@ -133,6 +133,7 @@ class UserRedux extends Component {
             })
         }
         if(this.state.action === CRUD_ACTION.EDIT){
+            console.log(this.state)
             let avatarNew = '';
             if(this.state.avatar){
                 avatarNew = this.state.avatar;
@@ -228,7 +229,7 @@ class UserRedux extends Component {
                                 <label><FormattedMessage id="manage-user.gender" /></label>
                                 <select className="form-control"
                                     onChange={(event) => this.handleOnChangeInput(event, 'gender')}
-                                    value={gender || ''}
+                                    value={this.state.gender || ''}
                                 >
                                     {genders && genders.length > 0 &&
                                         genders.map((item, index) => {
@@ -242,7 +243,7 @@ class UserRedux extends Component {
                                 <label><FormattedMessage id="manage-user.role" /></label>
                                 <select className="form-control"
                                     onChange={(event) => this.handleOnChangeInput(event, 'role')}
-                                    value={role || ''}
+                                    value={this.state.role || ''}
                                 >
                                     {roles && roles.length > 0 && roles.map((item, index) => {
                                         return (
@@ -257,7 +258,7 @@ class UserRedux extends Component {
                                 <label><FormattedMessage id="manage-user.position" /></label>
                                 <select className="form-control"
                                     onChange={(event) => this.handleOnChangeInput(event, 'position')}
-                                    value={position || ''}
+                                    value={this.state.position || ''}
                                 >
                                     {positions && positions.length > 0 && positions.map((item, index) => {
                                         return (
