@@ -21,7 +21,15 @@ class DoctorSchedule extends Component {
         }
     }
     async componentDidMount() {
-        this.setArrDays()
+        await this.setArrDays()
+        if (this.props.doctorIdProps) {
+            let allDays = this.state.allDays
+            let res = await getScheduleByDateService(this.props.doctorIdProps, allDays[0].value)
+            this.setState({
+                allAvailableTime: res.data ? res.data : []
+            })
+
+        }
 
     }
 
@@ -61,14 +69,14 @@ class DoctorSchedule extends Component {
             }
         }
     }
-    handleClickTimeSchedule = (item)=>{
-        console.log('item time click: ',item)
+    handleClickTimeSchedule = (item) => {
+        console.log('item time click: ', item)
         this.setState({
             isOpenModelBooking: true,
             dataModel: item
         })
     }
-    closeBookingModel = ()=>{
+    closeBookingModel = () => {
         this.setState({
             isOpenModelBooking: false
         })
@@ -106,9 +114,9 @@ class DoctorSchedule extends Component {
                                             let timeDisplay = language === LANGUAGES.VI ?
                                                 item.timeTypeData.valueVI : item.timeTypeData.valueEN
                                             return (
-                                                <button 
+                                                <button
                                                     key={index}
-                                                    onClick={()=>this.handleClickTimeSchedule(item)}
+                                                    onClick={() => this.handleClickTimeSchedule(item)}
                                                 >{timeDisplay}</button>
 
                                             )
@@ -124,10 +132,10 @@ class DoctorSchedule extends Component {
                         </div>
                     </div>
                 </div>
-                <BookingModel 
-                    isOpenModelProps = {isOpenModelBooking}
-                    closeBookingModelProps = {this.closeBookingModel}
-                    dataModelProps = {dataModel}
+                <BookingModel
+                    isOpenModelProps={isOpenModelBooking}
+                    closeBookingModelProps={this.closeBookingModel}
+                    dataModelProps={dataModel}
                 />
             </>
         );

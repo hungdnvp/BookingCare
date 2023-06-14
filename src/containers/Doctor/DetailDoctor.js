@@ -7,7 +7,7 @@ import { getDetailInforDoctor } from "../../services/userService";
 import { LANGUAGES } from '../../utils';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfor from './DoctorExtraInfor';
-
+import Footer from '../Footer/Footer';
 class DetailDoctor extends Component {
     constructor(props) {
         super(props);
@@ -77,10 +77,8 @@ class DetailDoctor extends Component {
                         {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.contentHTML
                         && <div contentEditable='false' dangerouslySetInnerHTML={{ __html: detailDoctor.Markdown.contentHTML }}></div>}
                     </div>
-                    <div className='comment-doctor'>
-
-                    </div>
                 </div>
+                <Footer />
             </Fragment>
         );
     }

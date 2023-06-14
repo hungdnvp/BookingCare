@@ -1,9 +1,21 @@
 .container-detail-specialty {
     .specialty-body {
 
-        margin: 0 100px;
+        padding: 0 100px;
+        background: #eee;
+        display: flex;
+        flex-direction: column;
         .description {
+            background-color: white !important;
+            padding: 12px;
 
+            h2{
+                color: orange;
+                text-align: center;
+            }
+            h3{
+                color: #337ab7;
+            }
         }
 
         .doctor {

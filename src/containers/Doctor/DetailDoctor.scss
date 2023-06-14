@@ -1,9 +1,9 @@
 .doctor-detail-container{
-    height: 500px;
+    // height: 500px;
 
     .intro-doctor{
         display: flex;
-
+        padding-left: 78px;
         .content-left{
             width: 20%;
             background: center center no-repeat;
@@ -42,9 +42,7 @@
 
     }
 
-    .comment-doctor{
-        height: 100px;
-    }
+
     .schedule-doctor{
         margin: 0 100px;
         display: flex;
@@ -52,6 +50,7 @@
         padding: 24px 0;
         .left-container{
             width: 50%;
+            border-right: 1px solid #ddd;
         }
         .right-container{
             width: 50%;

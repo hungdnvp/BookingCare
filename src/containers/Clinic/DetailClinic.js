@@ -1,21 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './DetailSpecialty.scss';
+import './DetailClinic.scss';
 import { toast } from 'react-toastify';
 import HomeHeader from '../HomePage/HomeHeader';
 import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorExtraInfor from '../Doctor/DoctorExtraInfor';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
-import { getDetailSpecailty } from '../../services/userService';
+import { getDetailClinic } from '../../services/userService';
 import Footer from '../Footer/Footer';
 import _ from 'lodash';
 
-class DetailSpecialty extends React.Component {
+class DetailClinic extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             arrDoctorId: [],
-            dataDetailSpecialty: {}
+            dataDetailClinic: {}
         };
 
     }
@@ -23,7 +23,7 @@ class DetailSpecialty extends React.Component {
     async componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
-            let res = await getDetailSpecailty(id);
+            let res = await getDetailClinic(id);
             if (res && res.errCode === 0) {
                 let arrDoctorId = []
                 let data = res.data
@@ -36,7 +36,7 @@ class DetailSpecialty extends React.Component {
                     }
                 }
                 this.setState({
-                    dataDetailSpecialty: res.data,
+                    dataDetailClinic: res.data,
                     arrDoctorId: arrDoctorId
                 })
             }
@@ -44,17 +44,16 @@ class DetailSpecialty extends React.Component {
     }
 
     render() {
-        console.log('state', this.state)
-        let { arrDoctorId, dataDetailSpecialty } = this.state
+        let { arrDoctorId, dataDetailClinic } = this.state
         return (
             <>
                 <div className='container-detail-specialty'>
                     <HomeHeader />
 
                     <div className='specialty-body'>
-                        <div className='description'>
-                            {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty)
-                                && <div contentEditable='false' dangerouslySetInnerHTML={{ __html: dataDetailSpecialty.descriptionHTML }}></div>}
+                        <div className='description-clinic'>
+                            {dataDetailClinic && !_.isEmpty(dataDetailClinic)
+                                && <div contentEditable='false' dangerouslySetInnerHTML={{ __html: dataDetailClinic.descriptionHTML }}></div>}
                         </div>
                         {arrDoctorId && arrDoctorId.length > 0 &&
                             arrDoctorId.map((item, index) => {
@@ -104,4 +103,4 @@ const mapDispatchToProps = dispatch => {
     return {
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(DetailSpecialty);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailClinic);

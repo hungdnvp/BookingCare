@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './MedicalFacility.scss';
 import Slider from 'react-slick';
-
+import { getAllClinic } from '../../../services/userService';
+import { withRouter } from 'react-router';
 class MedicalFacility extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataClinic: []
+        }
+    }
+    async componentDidMount() {
+        let res = await getAllClinic()
+        if (res && res.errCode === 0) {
+            this.setState({
+                dataClinic: res.clinics
+            })
+        }
+    }
+    handleViewDetailClinic = (item) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-clinic/${item.id}`)
+        }
+    }
     render() {
+        let {dataClinic} = this.state
         return (
             <div className='section-share section-medical-facility'>
                 <div className='section-container'>
@@ -15,54 +34,33 @@ class MedicalFacility extends Component {
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
-                            <div className='img-custome'>
-                                <div className='outer-bg'>
-                                    <div className='bg-image' style={{"marginLeft":"36px"}}></div>
-                                    <span><h3>Hệ thống y tế Việt Đức 1</h3></span>
-                                </div>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='outer-bg'>
-                                    <div className='bg-image'></div>
-                                    <span><h3>Hệ thống y tế Việt Đức 2</h3></span>
-                                </div>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='outer-bg'>
-                                    <div className='bg-image'></div>
-                                    <span><h3>Hệ thống y tế Việt Đức 3</h3></span>
-                                </div>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='outer-bg'>
-                                    <div className='bg-image'></div>
-                                    <span><h3>Hệ thống y tế Việt Đức 4</h3></span>
-                                </div>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='outer-bg'>
-                                    <div className='bg-image'></div>
-                                    <span><h3>Hệ thống y tế Việt Đức 5</h3></span>
-                                </div>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='outer-bg'>
-                                    <div className='bg-image'></div>
-                                    <span><h3>Hệ thống y tế Việt Đức 6</h3></span>
-                                </div>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='outer-bg'>
-                                    <div className='bg-image'></div>
-                                    <span><h3>Hệ thống y tế Việt Đức 7</h3></span>
-                                </div>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='outer-bg'>
-                                    <div className='bg-image'></div>
-                                    <span><h3>Hệ thống y tế Việt Đức 8</h3></span>
-                                </div>
-                            </div>
+                            {/* {dataSpecialty && dataSpecialty.length > 0 &&
+                                dataSpecialty.map((item, index) => {
+                                    return (
+                                        <div className='img-custome' key={index} 
+                                        onClick={()=>this.handleViewDetailSpecialty(item)}
+                                        >
+                                            <div className='bg-image'
+                                            style={{backgroundImage: `url(${item.image})`}}
+                                            ></div>
+                                            <span><h3>{item.name}</h3></span>
+                                        </div>
+                                    )
+                                })
+                            } */}
+                            {dataClinic && dataClinic.length > 0 &&
+                                dataClinic.map((item, index) => {
+                                    return (
+                                        <div className='img-custome' key={index} onClick={()=>this.handleViewDetailClinic(item)}>
+                                            <div className='outer-bg'>
+                                                <div className='bg-image' style={{"backgroundImage": `url(${item.image})`, marginLeft: "36px" }}></div>
+                                                <span><h3>{item.name}</h3></span>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+
                         </Slider>
                     </div>
                 </div>
@@ -83,4 +81,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalFacility);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MedicalFacility));
