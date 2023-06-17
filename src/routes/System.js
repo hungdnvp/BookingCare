@@ -9,7 +9,7 @@ import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
 class System extends Component {
     render() {
-        const { systemMenuPath, isLoggedIn } = this.props;
+        const { systemMenuPath, isLoggedIn, doctorMenuPath } = this.props;
         return (
             <React.Fragment>
                 {isLoggedIn && <Header />} 
@@ -21,8 +21,8 @@ class System extends Component {
                             <Route path="/system/manage-doctor" component={ManageDoctor} />
                             <Route path="/system/manage-specialty" component={ManageSpecialty} />
                             <Route path="/system/manage-clinic" component={ManageClinic} />
-
-                            <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
+                            {/* { } */}
+                            <Route component={() => { return (<Redirect to={doctorMenuPath} />) }} />
                         </Switch>
                     </div>
                 </div>
@@ -35,6 +35,7 @@ class System extends Component {
 const mapStateToProps = state => {
     return {
         systemMenuPath: state.app.systemMenuPath,
+        doctorMenuPath: state.app.doctorMenuPath,
         isLoggedIn: state.user.isLoggedIn
     };
 };
