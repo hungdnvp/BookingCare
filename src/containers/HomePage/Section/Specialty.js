@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import { getAllSpecialty } from '../../../services/userService';
 import { withRouter } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 
 class Specialty extends Component {
     constructor(props) {
@@ -30,8 +31,8 @@ class Specialty extends Component {
             <div className='section-share section-specialty'>
                 <div className='section-container'>
                     <div className='section-header'>
-                        <span className='title-section'>Chuyên khoa phổ biến</span>
-                        <button className='btn-section'>Xem thêm</button>
+                        <span className='title-section'><FormattedMessage id="homepage.specialty-title" /></span>
+                        <button className='btn-section'><FormattedMessage id="homepage.more-infor" /></button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>

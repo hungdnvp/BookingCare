@@ -85,15 +85,42 @@
             .img-custome {
                 display: flex !important;
                 justify-content: center !important;
-                flex-flow: column !important;
                 align-items: center !important;
 
-                span {
-                    padding-top: 24px;
+                .des-handbook {
+                    padding-left: 24px;
+                    width: 50% !important;
+                    span {
+                        h3{
+                            font-weight: bold !important;
+                            font-size: 16px !important;
+                        }
+                        
+                    }
                 }
 
+
                 .bg-image {
-                    background-image: url('../../assets/handbook/handbook1.png');
+                    background-image: url('../../assets/handbook/handbook4.jpg');
+
+                }
+                .bg-image {
+                    &.ig2{
+                        background-image: url('../../assets/handbook/handbook2.jpg');
+                    }
+                }
+                .bg-image {
+                    &.ig3{
+
+                        background-image: url('../../assets/handbook/handbook1.png');
+                    }
+
+                }
+                .bg-image {
+                    &.ig4{
+
+                        background-image: url('../../assets/handbook/handbook3.png');
+                    }
 
                 }
             }
@@ -215,7 +242,7 @@
     border: 2px solid #d7d7d7 !important;
 
     &:hover {
-        background:  #f7d800 !important;
+        background: #f7d800 !important;
     }
 }
 
@@ -238,7 +265,7 @@
     border: 2px solid #d7d7d7 !important;
 
     &:hover {
-        background:  #f7d800 !important;
+        background: #f7d800 !important;
     }
 }
 

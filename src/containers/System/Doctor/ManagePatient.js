@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import "./ManagePatient.scss";
-import { FormattedMessage } from 'react-intl';
-import * as actions from "../../../store/actions";
-import { LANGUAGES } from '../../../utils/constant';
 import { toast } from 'react-toastify';
 import DatePicker from '../../../components/Input/DatePicker';
-import { getAllPatientBooking } from '../../../services/userService';
+import { getAllPatientBooking, examine_success } from '../../../services/userService';
 import moment from 'moment';
-
+import { Button, Space, Table, Tag } from "antd";
+import LoadingOverlay from 'react-loading-overlay';
 
 const _ = require('lodash');
 
@@ -18,16 +16,18 @@ class ManagePatient extends Component {
         super(props);
         this.state = {
             currentDate: moment(new Date()).startOf('day').valueOf(),
-            dataPatient: []
+            dataPatient: [],
+            isShowLoading: false
         }
     }
     async componentDidMount() {
+
+        await this.getDataPatient()
+    }
+    getDataPatient = async () => {
         let { user } = this.props
         let { currentDate } = this.state
         let formatDate = new Date(currentDate).getTime()
-        await this.getDataPatient(user, formatDate)
-    }
-    getDataPatient = async (user, formatDate) => {
         let res = await getAllPatientBooking(user.id, formatDate)
         console.log('res: ', res)
         if (res && res.errCode === 0) {
@@ -42,73 +42,122 @@ class ManagePatient extends Component {
     handleOnChangeDatePicker = (date) => {
         this.setState({
             currentDate: date[0]
-        }, () => {
-            let { user } = this.props
-            let { currentDate } = this.state
-            let formatDate = new Date(currentDate).getTime()
-            this.getDataPatient(user, formatDate)
+        }, async () => {
+            await this.getDataPatient()
         })
     }
-    handleConfirm = ()=>{
+    handleConfirm = async (item) => {
+        // console.log(item)
+        this.setState({
+            isShowLoading: true
+        })
+        let data = {
+            bookingId: item.id,
+            email: item.patientData.email,
+            firstName: item.patientData.firstName
+        }
+
+        let res = await examine_success(data)
+        this.setState({
+            isShowLoading: false
+        })
+        if (res && res.errCode === 0) {
+            toast.success('Xác nhận khám thành công')
+            await this.getDataPatient()
+        } else {
+            toast.error('Xác nhận khám không thành công')
+        }
 
     }
-    handleSendBill = ()=>{
-        
-    }
+
+
+
+
     render() {
+
+
+        const columns = [
+            {
+                title: 'Name',
+                dataIndex: 'statusId',
+                render: (statusId, _) =>
+                    <Tag color={statusId === 'S2' ? 'geekblue' : 'green'}> {statusId === 'S2' ? 'CHỜ KHÁM' : 'KHÁM XONG'}
+                    </Tag>
+
+            },
+            {
+                title: 'Thoi gian',
+                render: (_, item) => {
+                    return <> {item.timeTypeDataBooking.valueVI}
+                    </>
+                },
+
+            },
+            {
+                title: 'Họ tên',
+                render: (_, item) => {
+                    return <> {item.patientData.firstName}
+                    </>
+                },
+            },
+            {
+                title: 'Email',
+                render: (_, item) => {
+                    return <> {item.patientData.email}
+                    </>
+                },
+            },
+            {
+                title: 'Giới tính',
+                render: (_, item) => {
+                    return <> {item.patientData.genderData.valueVI}
+                    </>
+                },
+            },
+            {
+                title: 'Actions',
+                render: (_, item) =>
+                    <Button type='primary' disabled={item.statusId !== 'S2'} onClick={() => this.handleConfirm(item)}>Xác nhận khám</Button>
+
+            },
+        ];
+
         let { dataPatient } = this.state
         return (
-            <div className='manage-patient-container'>
-                <div className='mp-titiel'>
-                    Quản lí bệnh nhân khám bệnh
-                </div>
-                <div className='manage-patient-body'>
-                    <div className='col-4 form-group'>
-                        <label>Chọn ngày khám</label>
-                        <DatePicker
-                            className="form-control"
-                            onChange={this.handleOnChangeDatePicker}
-                            value={this.state.currentDate}
-                        // minDate={yesterday}
-                        />
-                    </div>
-                    <div className='col-12'>
-                        <table style={{ width: "100%" }} className='table-manage-patient'>
-                            <tbody>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Thời gian</th>
-                                    <th>Họ tên</th>
-                                    <th>Email</th>
-                                    <th>Giới tính</th>
-                                    <th>Actions</th>
-                                </tr>
-                                {dataPatient && dataPatient.length > 0 ?
-                                    dataPatient.map((item, index) => {
-                                        return (
-                                            <tr key={index}>
-                                                <td>{index + 1}</td>
-                                                <td>{item.timeTypeDataBooking.valueVI}</td>
-                                                <td>{item.patientData.firstName}</td>
-                                                <td>{item.patientData.email}</td>
-                                                <td>{item.patientData.genderData.valueVI}</td>
-                                                <td>
-                                                    <button className='mp-btn-confirm' onClick={()=>this.handleConfirm()}>Xác nhận</button>
-                                                    <button className='mp-btn-send-bill' onClick={()=>this.handleSendBill()}>Gửi hóa đơn</button>
-                                                </td>
-                                            </tr>
-                                        )
-                                    }) :
-                                    <tr>
-                                        không có lịch hẹn của bệnh nhân
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <>
+                <LoadingOverlay
+                    active={this.state.isShowLoading}
+                    spinner
+                    text='Loadding'
+                >
+                    <div className='manage-patient-container'>
+                        <div className='mp-titiel'>
+                            Quản lí bệnh nhân khám bệnh
+                        </div>
 
-            </div>
+                        {/* <div className='manage-patient-body'> */}
+                        <div className='manage-patient-body'>
+                            {/* <div className='col-4 form-group'> */}
+                            <div className='form-date'>
+                                <Space style={{ paddingRight: 8 }}>Chọn ngày khám:</Space>
+                                <div>
+                                    <DatePicker
+                                        className="form-control"
+                                        onChange={this.handleOnChangeDatePicker}
+                                        value={this.state.currentDate}
+                                    // minDate={yesterday}
+                                    />
+                                </div>
+                            </div>
+
+                            <Table dataSource={dataPatient} columns={columns} />
+
+                        </div>
+
+                    </div>
+                </LoadingOverlay>
+            </>
+
         );
     }
 }

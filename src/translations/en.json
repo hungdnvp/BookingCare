@@ -26,7 +26,6 @@
             "manage-user": "User",
             "manage-doctor": "Manage doctor",
             "manage-admin": "Manage admin",
-            "crud": "CRUD user",
             "crud-redux": "Manage User",
             "clinic": "Clinics",
             "manage-clinic": "Manage clinics",
@@ -57,13 +56,15 @@
         "image": "Avatar"
     },
     "homepage": {
-        "outstanding-doctor": "Last week's featured doctor",
-        "more-infor": "More Infor"
+        "outstanding-doctor": "Popular doctor",
+        "more-infor": "More Infor",
+        "specialty-title": "Popular specialtys",
+        "medical-facility-title": "Popular medical Facilities"
     },
 
     "manage-schedule": {
         "title": "Manage doctor's examination plan",
-        "choose-doctor": "Select doctor",
+        "choose-doctor": "Doctor Name",
         "save": "Save",
         "choose-date": "Choose date"
     },

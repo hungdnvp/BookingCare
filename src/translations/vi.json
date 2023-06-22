@@ -23,10 +23,9 @@
     },
     "menu": {
         "admin": {
-            "manage-user": "Người dùng",
+            "manage-user": "Quản lí",
             "manage-doctor": "Quản lý bác sĩ",
             "manage-admin": "Quản lý admin",
-            "crud": "CRUD user",
             "crud-redux": "Quản lý tài khoản",
             "clinic": "Phòng khám",
             "manage-clinic": "Quản lý phòng khám",
@@ -57,13 +56,15 @@
         "image": "Ảnh đại diện"
     },
     "homepage": {
-        "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
-        "more-infor": "Xem thêm"
+        "outstanding-doctor": "Bác sĩ nổi bật",
+        "more-infor": "Xem thêm",
+        "specialty-title": "Chuyên khoa phổ biến",
+        "medical-facility-title": "Cơ sở y tế nổi bật"
     },
 
     "manage-schedule": {
         "title": "Quản lí kế hoạch khám bệnh",
-        "choose-doctor": "Chọn bác sĩ",
+        "choose-doctor": "Tên bác sĩ",
         "save": "Lưu thông tin",
         "choose-date": "Chọn ngày"
     },

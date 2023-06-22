@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect} from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
@@ -56,7 +56,9 @@ class App extends Component {
                                     <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
                                     
                                     <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
-                                    <Route path={path.VERIFY_BOOKING} component={VerifyEmail} />
+                                    <Route path={path.VERIFY_BOOKING} component={userIsAuthenticated(VerifyEmail)} />
+
+                                <Route component={() => { return (<Redirect to= '/home' />) }} />
 
                                 </Switch>
                             </CustomScrollbars>

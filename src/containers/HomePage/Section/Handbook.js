@@ -4,9 +4,20 @@ import Slider from 'react-slick';
 
 
 class HandBook extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            settings: {
+                dots: false,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 2,
+                slidesToScroll: 1
+            }
+        }
+    }
 
     render() {
-       
         return (
             <div className='section-share section-handbook'>
                 <div className='section-container'>
@@ -15,39 +26,32 @@ class HandBook extends Component {
                         <button className='btn-section'>Xem thêm</button>
                     </div>
                     <div className='section-body'>
-                        <Slider {...this.props.settings}>
+                        <Slider {...this.state.settings}>
                             <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 1</h3></span>
+                                <div className='bg-image ig4'></div>
+                                <div className='des-handbook'>
+                                    <span><h3>Review Kích thích từ trường (TMS) trị trầm cảm tại Trung tâm Y khoa Vạn Hạnh</h3></span>
+                                </div>
                             </div>
                             <div className='img-custome'>
                                 <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 2</h3></span>
+                                <div className='des-handbook'>
+                                    <span><h3>5 địa chỉ bọc răng sứ uy tín tại TP.HCM</h3></span>
+                                </div>
                             </div>
                             <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 3</h3></span>
+                                <div className='bg-image ig2'></div>
+                                <div className='des-handbook'>
+                                    <span><h3>Top 5 địa chỉ trồng răng chất lượng cao tại TP.HCM</h3></span>
+                                </div>
                             </div>
                             <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 4</h3></span>
+                                <div className='bg-image ig3'></div>
+                                <div className='des-handbook'>
+                                    <span><h3>Top 5 địa chỉ bọc răng sứ được phản hồi tốt tại Hà Nội</h3></span>
+                                </div>
                             </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 5</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 6</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 7</h3></span>
-                            </div>
-                            <div className='img-custome'>
-                                <div className='bg-image'></div>
-                                <span><h3>Cơ xương khớp 8</h3></span>
-                            </div>
+
                         </Slider>
                     </div>
                 </div>
